@@ -17,11 +17,18 @@ class Graph
 
   def addNodes(i)
     @nodes.push(i)
+    @nodes = @nodes.uniq
   end
 
   def addEdges(i, j)
+    [i, j].each do |v|
+      unless @nodes.include?(v)
+        addNodes(v)
+      end
+    end
     @edges.push([i, j])
     @edges.push([j, i])
+    @edges = @edges.uniq
   end
 
   def getNeighbors(i)
@@ -44,9 +51,8 @@ g = Graph.new
 p g
 g.addNodes(1)
 g.addEdges(1, 2)
+g.addEdges(1, 2)
 g.addEdges(1, 3)
 g.addEdges(1, 4)
-p g
-p g.getNeighbors(1)
 p g.getDegree(1)
-
+p g.getDegree(2)
