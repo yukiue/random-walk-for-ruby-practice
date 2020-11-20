@@ -46,13 +46,20 @@ class Graph
   end
 end
 
-g = Graph.new
-
-p g
-g.addNodes(1)
-g.addEdges(1, 2)
-g.addEdges(1, 2)
-g.addEdges(1, 3)
-g.addEdges(1, 4)
-p g.getDegree(1)
-p g.getDegree(2)
+# random graph
+def createRandomGraph(n, p)
+  g = Graph.new
+  # add n nodes
+  [*1..n].each do |v|
+    g.addNodes(v)
+  end
+  # add edges with probability p
+  [*1..n].each do |i|
+    [*1..n].each do |j|
+      if not i == j and Random.rand < p
+        g.addEdges(i, j)
+      end
+    end
+  end
+  return g
+end
